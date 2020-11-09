@@ -68,7 +68,7 @@ int main(int argc, char** argv)
     else
     {
         display_help();
-        GFLAGS_NAMESPACE::ShowUsageWithFlags(argv[0]);
+        ::ShowUsageWithFlags(argv[0]);
         return 1;
     }
 
@@ -86,9 +86,9 @@ int main(int argc, char** argv)
         }
     }
 
-    google::SetUsageMessage(argv[0]);
-    google::AllowCommandLineReparsing();
-    google::ParseCommandLineFlags(&argc, &argv, true);
+    ::SetUsageMessage(argv[0]);
+    ::AllowCommandLineReparsing();
+    ::ParseCommandLineFlags(&argc, &argv, true);
 
     if (format == "##UNSET##")
         format = FLAGS_format;
