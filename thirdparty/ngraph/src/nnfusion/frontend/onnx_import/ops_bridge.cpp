@@ -31,6 +31,7 @@
 #include "op/cast.hpp"
 #include "op/clip.hpp"
 #include "op/concat.hpp"
+#include "op/const_of_shape.hpp"
 #include "op/constant.hpp"
 #include "op/conv.hpp"
 #include "op/div_grad.hpp"
@@ -44,6 +45,7 @@
 #include "op/index_reduce.hpp"
 #include "op/layer_norm.hpp"
 #include "op/leaky_relu.hpp"
+#include "op/log_softmax.hpp"
 #include "op/lstm.hpp"
 #include "op/matmul.hpp"
 #include "op/memory_copy.hpp"
@@ -55,6 +57,7 @@
 #include "op/slice.hpp"
 #include "op/softmax.hpp"
 #include "op/split.hpp"
+#include "op/squeeze.hpp"
 #include "op/sum.hpp"
 #include "op/tanh_grad.hpp"
 #include "op/tile.hpp"
@@ -148,6 +151,7 @@ namespace nnfusion
                 REGISTER_OPERATOR("Clip", 1, TranslateClipOp);
                 REGISTER_OPERATOR("Concat", 1, TranslateConcatOp);
                 REGISTER_OPERATOR("Constant", 1, TranslateConstantOp);
+                REGISTER_OPERATOR("ConstantOfShape", 1, TranslateConstantOfShapeOp);
                 REGISTER_OPERATOR("Conv", 1, TranslateConvOp);
                 REGISTER_OPERATOR("Cos", 1, TranslateUnaryOp<op::Cos>);
                 REGISTER_OPERATOR("Div", 1, TranslateLegacyBinaryOp<op::Divide>);
@@ -179,7 +183,7 @@ namespace nnfusion
                 REGISTER_OPERATOR("LeakyRelu", 1, TranslateLeakyReluOp);
                 REGISTER_OPERATOR("Less", 1, TranslateBinaryOp<op::Less>);
                 REGISTER_OPERATOR("Log", 1, TranslateUnaryOp<op::Log>);
-                //REGISTER_OPERATOR("LogSoftmax", 1, log_softmax);
+                REGISTER_OPERATOR("LogSoftmax", 1, TranslateLogSoftmaxOp);
                 //REGISTER_OPERATOR("LRN", 1, lrn);
                 REGISTER_OPERATOR("LSTM", 1, TranslateLstmOp);
                 REGISTER_OPERATOR("MatMul", 1, TranslateMatmulOp);
@@ -192,7 +196,7 @@ namespace nnfusion
                 REGISTER_OPERATOR("Mul", 1, TranslateLegacyBinaryOp<op::Multiply>);
                 REGISTER_OPERATOR("Mul", 7, TranslateBinaryOp<op::Multiply>);
                 REGISTER_OPERATOR("Neg", 1, TranslateUnaryOp<op::Negative>);
-                //REGISTER_OPERATOR("Not", 1, TranslateUnaryOp<op::Not>);
+                REGISTER_OPERATOR("Not", 1, TranslateUnaryOp<op::Not>);
                 REGISTER_OPERATOR("OneHot", 1, TranslateOneHotOp);
                 REGISTER_OPERATOR("Or", 1, TranslateBinaryOp<op::Or>);
                 REGISTER_OPERATOR("Pow", 1, TranslateBinaryOp<op::Power>);
@@ -229,7 +233,8 @@ namespace nnfusion
                 //REGISTER_OPERATOR("Softsign", 1, softsign);
                 REGISTER_OPERATOR("Split", 1, TranslateSplitOp);
                 REGISTER_OPERATOR("Sqrt", 1, TranslateUnaryOp<op::Sqrt>);
-                //REGISTER_OPERATOR("Squeeze", 1, squeeze);
+                REGISTER_OPERATOR("Squeeze", 1, TranslateSqueezeOp);
+                REGISTER_OPERATOR("Squeeze", 11, TranslateSqueezeOp);
                 REGISTER_OPERATOR("Sub", 1, TranslateLegacyBinaryOp<op::Subtract>);
                 REGISTER_OPERATOR("Sub", 7, TranslateBinaryOp<op::Subtract>);
                 REGISTER_OPERATOR("Sum", 1, TranslateSumOp);

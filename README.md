@@ -32,7 +32,7 @@ We will use a simple TensorFlow LSTM inference model as an example. You can down
 
 `wget https://nnfusion.blob.core.windows.net/models/tensorflow/frozen_lstm_l8s8h256_bs1.pb`
 
-To use your own model to get started, please refer to [Supported Models](https://github.com/microsoft/nnfusion/blob/master/models/tensorflow/README.md) to see whether it is supported and freeze your model according to [Freeze Your Model](https://github.com/microsoft/nnfusion/wiki/1.1-Freeze-TensorFlow-Models).
+To use your own model to get started, please refer to [Supported Models](https://github.com/microsoft/nnfusion/blob/master/models/tensorflow/README.md) to see whether it is supported and freeze your model according to [Freeze Your Model](https://github.com/microsoft/nnfusion/blob/master/docs/Freeze-TensorFlow-Models.md).
 
 1. Pull docker image
 `docker pull nnfusion/cuda:10.2-cudnn7-devel-ubuntu18.04`
@@ -65,7 +65,7 @@ cd root/nnfusion_rt/cuda_codegen
 cmake . && make -j
 ./main_test
 ```
-6. The output of NNFusion should be Tensors with value and model iteration times. Using the example model `frozen_lstm_l8s8h256_bs1.pb`, you will see the output of this model and a summary of perfomance:
+6. The output of NNFusion should be Tensors with value and model iteration times. Using the example model `frozen_lstm_l8s8h256_bs1.pb`, you will see the output of this model and a summary of performance:
 ```
 Result_2261_0:
 8.921492e-03 1.182088e-02 8.937406e-03 7.932204e-03 1.574194e-02 3.844390e-03 -1.505094e-02 -1.112035e-02 5.026608e-03 -8.032205e-03  .. (size = 256, ends with 1.357487e-02);
@@ -89,18 +89,18 @@ Iteration time 2.730208 ms
 Iteration time 2.732960 ms
 Summary: [min, max, mean] = [2.724704, 2.968352, 2.921987] ms
 ```
-For more detailed information on NNFusion usage, please refer to [NNFusion Usage](https://github.com/microsoft/nnfusion/wiki/3.-Compile-a-Tensorflow-model-with-NNFusion).
+For more detailed information on NNFusion usage, please refer to [NNFusion Usage](https://github.com/microsoft/nnfusion/blob/master/docs/Compile-a-Tensorflow-model-with-NNFusion.md).
 
 ### Build from Source Code
 Researchers or contributors who want to do more research on optimizing model compilation, you can build NNFusion from source code.
 To build from source code, please read the following documents:
-1. Read [Before Started](https://github.com/microsoft/nnfusion/wiki/1.-Before-Started) page to see supported CUDA GPUs and required libs. 
-2. Read [Build Guide](https://github.com/microsoft/nnfusion/wiki/2.-Build-Guide) for more information on how to build and install NNFusion in your native system or in the docker container.
-3. After building and installing NNFusion, please refer to [Compile Guide and Tool Usage](https://github.com/microsoft/nnfusion/wiki/3.-Compile-a-Tensorflow-model-with-NNFusion) to learn how to compile or optimize a DNN model.
+1. Read [Before Started](https://github.com/microsoft/nnfusion/blob/master/docs/Before-Started.md) page to see supported CUDA GPUs and required libs. 
+2. Read [Build Guide](https://github.com/microsoft/nnfusion/blob/master/docs/Build-Guide.md) for more information on how to build and install NNFusion in your native system or in the docker container.
+3. After building and installing NNFusion, please refer to [Compile Guide and Tool Usage](https://github.com/microsoft/nnfusion/blob/master/docs/Compile-a-Tensorflow-model-with-NNFusion.md) to learn how to compile or optimize a DNN model.
 
 ### Speedups on benchmarks
 
-To learn how much performance improvement that NNFusion can achive on some typical DNN models, please refer to the [README page](https://github.com/microsoft/nnfusion/blob/osdi20_artifact/artifacts/README.md) at our OSDI'20 artifact branch. 
+To learn how much performance improvement that NNFusion can acheive on some typical DNN models, please refer to the [README page](https://github.com/microsoft/nnfusion/blob/osdi20_artifact/artifacts/README.md) at our OSDI'20 artifact branch. 
 
 # Contributing
 
@@ -108,7 +108,7 @@ This project welcomes contributions and suggestions.  Most contributions require
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
-To contribute, please refer to [Contribution Guide](https://github.com/microsoft/nnfusion/wiki/4.-Guide-for-Contributors) to see more details.
+To contribute, please refer to [Contribution Guide](https://github.com/microsoft/nnfusion/blob/master/docs/Contribution-Guide.md) to see more details.
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
