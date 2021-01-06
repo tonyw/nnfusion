@@ -5,7 +5,6 @@
 #include <queue>
 #include <utility>
 #include "nnfusion/core/kernels/cpu/cpu_kernel_emitter.hpp"
-#include "nnfusion/core/kernels/cuda_gpu/cuda_common_ops.hpp"
 #include "nnfusion/core/kernels/cuda_gpu/cuda_emitter.hpp"
 #include "nnfusion/core/kernels/hlsl/hlsl_kernel_emitter.hpp"
 
@@ -269,12 +268,14 @@ pair<NNFusion_DeviceType, kernels::KernelEmitter::Pointer>
 
     std::string identifier = ctx->generate_identifier();
     // Todo: platform interface to be coordinated with nnfusion devtype
-    std::vector<std::string> platform = {"CUDA_GPU"};
+    const std::vector<std::string> SUPPORT_PLATFORM = {"CUDA_GPU"};
 
-    if (identifier != "")
+    if (identifier != "" &&
+        find(SUPPORT_PLATFORM.begin(), SUPPORT_PLATFORM.end(), get_device_str(devtype)) !=
+            SUPPORT_PLATFORM.end())
     {
         // fetch all available kernel entries from kernel cache DB
-        auto fetched = cache_manager->fetch_all(identifier, platform.front());
+        auto fetched = cache_manager->fetch_all(identifier, get_device_str(devtype));
 
         // emit External kernels
         {
@@ -298,20 +299,11 @@ pair<NNFusion_DeviceType, kernels::KernelEmitter::Pointer>
         {
             nnfusion::cache::KernelEntry_p kernel_entry = nullptr;
             double kernel_time = 1000000000;
-            // AntaresOpSet depends on the correctness of the KernelContext identifier
-            std::set<std::string> AntaresOpSet = {"Dot", "Convolution", "AvgPool", "MaxPool"};
             for (auto fetch_entry : fetched)
             {
                 if (fetch_entry->source == "Antares")
                 {
                     if (fetch_entry->miscs["antares"]["device_name"] != FLAGS_fproduct_name)
-                    {
-                        continue;
-                    }
-                    // supported op set: +element-wise
-                    if (nnfusion::kernels::cuda::CudaElementOpMap.find(fetch_entry->op_type) ==
-                            nnfusion::kernels::cuda::CudaElementOpMap.end() &&
-                        AntaresOpSet.find(fetch_entry->op_type) == AntaresOpSet.end())
                     {
                         continue;
                     }
